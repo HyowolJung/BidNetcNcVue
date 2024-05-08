@@ -1,34 +1,51 @@
 <template>
-	<div>
-		<h2>About View</h2>
-		<p>{{ $route.path }}</p>
-		<button class="btn btn-primary" @click="$router.push('/')">
-			Home으로 이동
-		</button>
-		<h2>Store</h2>
-		<p>counter: {{ counter }}</p>
-		<p>doubleCount: {{ doubleCount }}</p>
-		<p>doubleCountPlusOne: {{ doubleCountPlusOne }}</p>
-		<button @click="increment()">Click!!</button>
+	<div class="main-content">
+		<div class="dashboard">
+			<h3>해야할 거</h3>
+			<p>1. 3월 13일까지 거래서 제출</p>
+			<p>2. 일일결산 밀린거 다하기</p>
+		</div>
+		<div class="notifications">
+			<h3>공지사항</h3>
+			<p>사장님의 말씀</p>
+			<p>명현이가 전하는 회사소식</p>
+		</div>
+		<div class="quick-links">
+			<h3>바로가기</h3>
+			<a href="#">링크 1</a>
+			<a href="#">링크 2</a>
+			<a href="#">링크 3</a>
+		</div>
+	</div>
+	<div class="footer">
+		<p>회사명 | 연락처 정보 | 지원</p>
 	</div>
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { useCounterStore } from '@/stores/counter';
-import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 console.log('route.path: ', route.path);
-
-const store = useCounterStore();
-
-const { counter, doubleCount, doubleCountPlusOne } = storeToRefs(store);
-const { increment } = store;
-counter.value = 100;
-// increment();
-// increment();
-// increment();
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+body {
+	font-family: Arial, sans-serif;
+}
+
+.main-content {
+	display: flex;
+	justify-content: space-around;
+	margin: 20px;
+}
+
+.dashboard,
+.notifications,
+.quick-links {
+	width: 30%;
+	padding: 10px;
+	background-color: #e9ecef;
+	border-radius: 5px;
+}
+</style>

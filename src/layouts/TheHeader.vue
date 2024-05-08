@@ -1,67 +1,126 @@
 <template>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-			<div class="container-fluid">
-				<RouterLink class="navbar-brand" to="/">GYM CODING</RouterLink>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<RouterLink class="nav-link" active-class="active" to="/">
-								Home
-							</RouterLink>
-						</li>
-						<li class="nav-item">
-							<RouterLink class="nav-link" active-class="active" to="/about">
-								About
-							</RouterLink>
-						</li>
-						<li class="nav-item">
-							<RouterLink class="nav-link" active-class="active" to="/posts">
-								게시글
-							</RouterLink>
-						</li>
-						<li class="nav-item">
-							<RouterLink class="nav-link" active-class="active" to="/nested">
-								Nested
-							</RouterLink>
-						</li>
-						<li class="nav-item">
-							<RouterLink class="nav-link" active-class="active" to="/my">
-								MyPage
-							</RouterLink>
-						</li>
-					</ul>
-					<div class="d-flex">
-						<button class="btn btn-outline-light" type="button" @click="goPage">
-							글쓰기
-						</button>
-					</div>
-				</div>
+	<div class="header-main">
+		<div class="user-info">
+			<div class="text-container">
+				<s:authentication property="principal.username" />
+				님 환영합니다.
 			</div>
-		</nav>
-	</header>
+			<form method="post" action="/logout">
+				<!-- <input
+					type="hidden"
+					name="${_csrf.parameterName}"
+					value="${_csrf.token}"
+				/> -->
+				<button class="logout-button">로그아웃</button>
+			</form>
+			<button class="logout-button" onclick="main()">메인화면</button>
+		</div>
+		<div class="header">
+			<a href="">내 정보</a>
+			|
+			<a href="#" @click="toggleMenu('member')">멤버 관리</a>
+			<div v-show="menus.member">
+				<RouterLink to="/member/memberList">사원 조회</RouterLink>
+				|
+				<RouterLink to="/member/memberSearch">사원 검색</RouterLink>
+			</div>
+			<!-- <RouterLink to="/member/memberMain">멤버 관리</RouterLink> -->
+			|
+			<a href="/project/projectList?pageNo=1">프로젝트 관리</a>
+			|
+			<a href="">급여 관리</a>
+			|
+			<a href="">근태 관리</a>
+			|
+			<a href="">휴가 관리</a>
+			|
+			<a href="">커뮤니티</a>
+		</div>
+	</div>
 </template>
+<script>
+import { ref } from 'vue';
 
-<script setup>
-import { useRouter } from 'vue-router';
+const menus = ref({
+	member: false,
+	//project: false,
+});
 
-const router = useRouter();
-const goPage = () => {
-	router.push({
-		name: 'PostCreate',
-	});
-};
+function toggleMenu(menu) {
+	menus.value[menu] = !menus.value[menu];
+}
 </script>
 
-<style lang="scss" scoped></style>
+<script setup>
+// import { useRouter } from 'vue-router';
+
+// const router = useRouter();
+// const goPage = () => {
+// 	router.push({
+// 		name: 'PostCreate',
+// 	});
+// };
+</script>
+
+<style>
+.user-info {
+	display: flex;
+	justify-content: flex-end; /* 요소들을 오른쪽 끝으로 정렬 */
+	align-items: center;
+	padding: 5px;
+	border-bottom: 1px solid #ccc; /* 테두리 색상 설정 */
+	padding-bottom: 10px; /* 하단 간격 추가 */
+}
+
+.text-container {
+	margin-right: 10px; /* 텍스트와 버튼 사이의 간격 조정 */
+}
+
+.logout-button {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 5px 9px;
+	border-radius: 4px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.logout-button:hover {
+	background-color: #0056b3;
+}
+
+.header,
+.footer {
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid #ccc; /* 테두리 색상 설정 */
+	/* padding-bottom: 10px; */ /* 하단 간격 추가 */
+}
+
+/* background-color: #f3f3f3; */
+.main-content {
+	display: flex;
+	justify-content: space-around;
+	margin: 20px;
+}
+
+.dashboard,
+.notifications,
+.quick-links {
+	width: 30%;
+	padding: 10px;
+	border-radius: 5px;
+}
+/* background-color: #e9ecef; */
+.quick-links a,
+.header a {
+	display: inline;
+	margin: 10px 0;
+}
+
+a {
+	text-decoration-line: none;
+}
+</style>

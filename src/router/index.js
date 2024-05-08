@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import AboutView from '@/views/AboutView.vue';
+import MemberMain from '@/views/MemberMain.vue';
+import MemberList from '@/views/MemberList.vue';
+
 import PostCreateView from '@/views/posts/PostCreateView.vue';
 import PostDetailView from '@/views/posts/PostDetailView.vue';
 import PostListView from '@/views/posts/PostListView.vue';
@@ -19,10 +22,21 @@ const routes = [
 		component: HomeView,
 	},
 	{
-		path: '/about',
+		path: '/main',
 		name: 'About',
 		component: AboutView,
 	},
+	{
+		path: '/member/memberMain',
+		name: 'MemberMain',
+		component: MemberMain,
+	},
+	{
+		path: '/member/memberList',
+		name: 'MemberList',
+		component: MemberList,
+	},
+
 	{
 		path: '/posts',
 		name: 'PostList',
