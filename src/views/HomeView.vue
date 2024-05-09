@@ -110,7 +110,7 @@ body {
 }
 
 .container {
-	max-width: 500px; /* 최대 너비 설정 */
+	max-width: 1000x; /* 최대 너비 설정 */
 	margin: 0 auto; /* 가운데 정렬 */
 	padding: 20px; /* 패딩 추가 */
 	background-color: white; /* 배경색 */

@@ -12,7 +12,7 @@ import TheView from '@/layouts/TheView.vue';
 </template>
 
 <style>
-.container {
-	max-width: 940px;
-}
+/* .container {
+	max-width: 940px; 
+}*/
 </style>
