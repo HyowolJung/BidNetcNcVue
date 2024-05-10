@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # vue3-posts
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -33,3 +34,6 @@ npm run build
 ```sh
 npm run lint
 ```
+=======
+# BidNetcNcVue
+>>>>>>> 7feac7c9067e930a2398c5126efabb5ea2e336ff
