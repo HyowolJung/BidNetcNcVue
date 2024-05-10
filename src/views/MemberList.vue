@@ -43,6 +43,17 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="pagingbutton">
+			<button v-if="pageDto.prev" @click="changePage(pageDto.startNo - 1)">
+				Previous
+			</button>
+			<button v-for="i in pageCount" :key="i" @click="changePage(i)">
+				{{ i }}
+			</button>
+			<button v-if="pageDto.next" @click="changePage(pageDto.endNo + 1)">
+				Next
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -62,12 +73,14 @@ td {
 th {
 	background-color: #f2f2f2; /* 배경색 설정 */
 }
-.choiceSort {
+.choiceSort,
+.pagingbutton {
 	display: flex; /* 플렉스박스 레이아웃 사용 */
 	justify-content: space-around; /* 버튼 사이에 공간 동일하게 분배 */
 }
 
-.choiceSort button {
+.choiceSort button,
+.pagingbutton button {
 	flex: 1; /* 모든 버튼이 가용 공간을 동일하게 차지하도록 설정 */
 	margin: 5px; /* 버튼 사이의 마진 설정 */
 	padding: 10px 0; /* 버튼의 상하 패딩 설정 */
@@ -75,12 +88,14 @@ th {
 }
 </style>
 <style scoped>
-.choiceSort {
+.choiceSort,
+.pagingbutton {
 	display: flex;
 	justify-content: space-around;
 }
 
-.choiceSort button {
+.choiceSort button,
+.pagingbutton button {
 	flex: 1;
 	margin: 5px;
 	padding: 10px 0;
@@ -95,23 +110,41 @@ export default {
 		return {
 			//members: [],
 			memberList: [],
-			pageNo: 1,
-			amount: 5,
+			//pageNo: 1,
+			//amount: 5,
+			pageDto: {
+				startNo: 1,
+				endNo: 5,
+				prev: false,
+				next: true,
+				currentPage: 1,
+				totalPages: 10,
+			},
+			currentChoice: 'IdUp',
 		};
+	},
+	computed: {
+		pageCount() {
+			return this.pageDto.endNo - this.pageDto.startNo + 1;
+		},
 	},
 	methods: {
 		fetchMemberLists(choiceValue) {
+			this.currentChoice = choiceValue;
 			const cri = {
 				choiceValue: choiceValue,
-				pageNo: this.pageNo,
-				amount: this.amount,
+				pageNo: this.pageDto.currentPage,
+				amount: 5,
 			};
+			console.log('choiceValue : ' + choiceValue);
 			axios
 				.post('http://localhost:5000/member/memberList', cri)
 				.then(response => {
 					if (response.data && Array.isArray(response.data.memberList)) {
 						this.memberList = response.data.memberList;
+						this.pageDto = response.data.pageDto;
 						console.log('response.data.memberList', response.data.memberList);
+						console.log('response.data.pageDto', response.data.pageDto);
 					} else {
 						throw new Error('Invalid response structure');
 					}
@@ -121,6 +154,11 @@ export default {
 					this.memberList = []; // 오류 발생 시 리스트를 비워 오류를 방지
 					alert('Failed to fetch member data.');
 				});
+		},
+		changePage(pageNo) {
+			this.pageDto.currentPage = pageNo;
+
+			this.fetchMemberLists(this.currentChoice); // 현재 선택된 정렬 옵션 유지
 		},
 	},
 };

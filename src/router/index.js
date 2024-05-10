@@ -3,6 +3,8 @@ import HomeView from '@/views/HomeView.vue';
 import AboutView from '@/views/AboutView.vue';
 import MemberMain from '@/views/MemberMain.vue';
 import MemberList from '@/views/MemberList.vue';
+import MemberSearch from '@/views/MemberSearch.vue';
+import MemberInsert from '@/views/MemberInsert.vue';
 
 import PostCreateView from '@/views/posts/PostCreateView.vue';
 import PostDetailView from '@/views/posts/PostDetailView.vue';
@@ -32,9 +34,19 @@ const routes = [
 		component: MemberMain,
 	},
 	{
+		path: '/member/memberSearch',
+		name: 'MemberSearch',
+		component: MemberSearch,
+	},
+	{
 		path: '/member/memberList',
 		name: 'MemberList',
 		component: MemberList,
+	},
+	{
+		path: '/member/memberInsert',
+		name: 'MemberInsert',
+		component: MemberInsert,
 	},
 
 	{
