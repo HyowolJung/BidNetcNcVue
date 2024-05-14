@@ -23,9 +23,11 @@
 				<RouterLink to="/member/memberList">사원 조회</RouterLink>
 				|
 				<RouterLink to="/member/memberSearch">사원 검색</RouterLink>
+				|
+				<RouterLink to="/member/memberInsert">사원 등록</RouterLink>
 			</div>
 			<!-- <RouterLink to="/member/memberMain">멤버 관리</RouterLink> -->
-			|
+			<!-- |
 			<a href="/project/projectList?pageNo=1">프로젝트 관리</a>
 			|
 			<a href="">급여 관리</a>
@@ -34,7 +36,7 @@
 			|
 			<a href="">휴가 관리</a>
 			|
-			<a href="">커뮤니티</a>
+			<a href="">커뮤니티</a> -->
 		</div>
 	</div>
 </template>
